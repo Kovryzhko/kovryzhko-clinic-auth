@@ -1,12 +1,17 @@
 import { Injectable } from "@nestjs/common";
-import { PrismaService } from "../prisma/prisma.service";
-import { AccountCreateInput, AccountUpdateInput } from "prisma/generated/models";
-import { SendOtpRequest } from "kovryzhko-clinic-contracts/gen/auth";
 import { Account } from "prisma/generated/client";
+import { AccountCreateInput, AccountUpdateInput } from "prisma/generated/models";
+import { PrismaService } from "src/modules/prisma/prisma.service";
 
 @Injectable()
-export class AuthRepository {
-    public constructor(private readonly prismaService: PrismaService) { }
+export class UserRepository {
+
+    constructor(private readonly prismaService: PrismaService) { }
+    public async findById(id: string) {
+        const account = await this.prismaService.account.findUnique({ where: { id } })
+
+        return account
+    }
 
     public async findByPhone(phone: string) {
         const account = await this.prismaService.account.findUnique({ where: { phone } })
@@ -20,11 +25,7 @@ export class AuthRepository {
         return account
     }
 
-    public async createAccount(data: AccountCreateInput) {
-        return await this.prismaService.account.create({ data })
-    }
-
-    public async findByPhoneOrEmail(data: SendOtpRequest) {
+    public async findByPhoneOrEmail(data: { identifier: string, type: string }) {
         let account: Account | null = null
         if (data.type === 'email') account = await this.findByEmail(data.identifier)
         if (data.type === 'phone') account = await this.findByPhone(data.identifier)
@@ -39,5 +40,9 @@ export class AuthRepository {
             },
             data
         })
+    }
+
+    public async createAccount(data: AccountCreateInput) {
+        return await this.prismaService.account.create({ data })
     }
 }

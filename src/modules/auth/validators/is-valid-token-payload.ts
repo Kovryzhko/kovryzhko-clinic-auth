@@ -1,4 +1,4 @@
-import { ITokenPayload } from "../auth.typings";
+import { ITokenPayload } from "src/modules/tokens/tokens.typings";
 
 export function isValidTokenPayload(payload: unknown): payload is ITokenPayload {
     return typeof payload === 'object'

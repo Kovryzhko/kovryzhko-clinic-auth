@@ -1,5 +1,4 @@
-
-export interface GenerateAuthTokensData {
+export interface GenerateTokensData {
     userId: string
     deviceId: string
 }

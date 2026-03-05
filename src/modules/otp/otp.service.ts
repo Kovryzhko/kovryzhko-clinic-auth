@@ -18,7 +18,7 @@ export class OtpService {
 
         await this.redisService.set(redisKey, hash, "EX", 600)
 
-        return { code }
+        return { code, hash }
     }
 
     private generateCode(length: number = 6) {

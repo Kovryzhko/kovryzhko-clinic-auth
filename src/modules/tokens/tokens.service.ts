@@ -1,12 +1,12 @@
 import * as jwt from 'jsonwebtoken'
-import { GenerateAuthTokensData, IGenerateToken, ITokenPayload, TokenType } from "../auth.typings";
 import { RpcException } from "@nestjs/microservices";
 import { RpcStatus } from "kovryzhko-clinic-common/dist/rpc-status.enum";
-import { isValidTokenPayload } from '../validators/is-valid-token-payload';
-import { getJwtSecret } from '../helpers/get-jwt-secret';
+import { GenerateTokensData, IGenerateToken, ITokenPayload, TokenType } from './tokens.typings';
+import { getJwtSecret } from './helpers/get-jwt-secret';
+import { isValidTokenPayload } from '../auth/validators/is-valid-token-payload';
 
-export class AuthTokenService {
-    public generateAuthTokens(data: GenerateAuthTokensData) {
+export class TokensService {
+    public generateAuthTokens(data: GenerateTokensData) {
 
         const accessTokenData = this.generateToken({ ...data, type: TokenType.Access })
         const refreshTokenData = this.generateToken({ ...data, type: TokenType.Refresh })
@@ -34,7 +34,7 @@ export class AuthTokenService {
     public validateToken(token: string): ITokenPayload {
         try {
             const payload = jwt.verify(token, getJwtSecret())
-            
+
             if (!isValidTokenPayload(payload)) throw new RpcException({ code: RpcStatus.INTERNAL, details: 'Internal error' })
 
             return payload
