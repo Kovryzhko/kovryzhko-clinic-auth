@@ -1,5 +1,5 @@
 Auth microservice for kovryzhko-clinic app
 
-JWT, Otp
+JWT, Otp, Account, Telegram auth, notifications
 
-Nest, PostgreSql, Prisma, Redis, Grpc
+Nest, PostgreSql, Prisma, Redis, Grpc, RabbitMQ
