@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { AccountRepository } from './account.repository';
 import { RpcException } from '@nestjs/microservices';
-import { RpcStatus } from 'kovryzhko-clinic-common/dist/rpc-status.enum';
+import { RpcStatus } from 'kovryzhko-clinic-common/dist/enums/rpc-status.enum';
 import { grpcAccountRoleMapper } from './mappers/grpc-role.mapper';
 import { UserRepository } from 'src/shared/repositories/user.repository';
 import { OtpService } from '../otp/otp.service';

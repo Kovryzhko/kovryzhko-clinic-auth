@@ -8,6 +8,7 @@ import { TelegramModule } from './modules/telegram/telegram.module';
 import { TokensModule } from './modules/tokens/tokens.module';
 import { MessagesModule } from './modules/messages/messages.module';
 import { ConfigModule } from '@nestjs/config';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
     imports: [
@@ -19,7 +20,8 @@ import { ConfigModule } from '@nestjs/config';
         AccountModule,
         TelegramModule,
         TokensModule,
-        MessagesModule
+        MessagesModule,
+        UsersModule,
     ],
     controllers: [],
     providers: [],

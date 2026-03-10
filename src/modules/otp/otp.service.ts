@@ -4,7 +4,7 @@ import { faker } from '@faker-js/faker';
 import { RpcException } from '@nestjs/microservices';
 import { generateOtpCode } from './utils/generate-code';
 import { generateOtpRedisKey } from './utils/generate-redis-key';
-import { RpcStatus } from 'kovryzhko-clinic-common/dist/rpc-status.enum';
+import { RpcStatus } from 'kovryzhko-clinic-common/dist/enums/rpc-status.enum';
 
 @Injectable()
 export class OtpService {

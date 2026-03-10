@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { RpcException } from '@nestjs/microservices';
-import { RpcStatus } from 'kovryzhko-clinic-common/dist/rpc-status.enum';
+import { RpcStatus } from 'kovryzhko-clinic-common/dist/enums/rpc-status.enum';
 import { TelegramRepository } from './telegram.repository';
 import { UserRepository } from 'src/shared/repositories/user.repository';
 import { TokensService } from '../tokens/tokens.service';
 import { TelegramVerifyRequest } from 'kovryzhko-clinic-contracts/gen/auth';
 import { createHash, createHmac } from 'crypto';
+import { UsersClientGrpc } from '../users/users.grpc';
 
 @Injectable()
 export class TelegramService {
@@ -18,6 +19,7 @@ export class TelegramService {
         private readonly telegramRepository: TelegramRepository,
         private readonly userRepository: UserRepository,
         private readonly tokensService: TokensService,
+        private readonly usersClient: UsersClientGrpc,
     ) {
         this.validateEnv();
     }
@@ -48,6 +50,9 @@ export class TelegramService {
         }
 
         const tokens = this.tokensService.generateAuthTokens({ deviceId: "test", userId: account.id })
+
+        this.usersClient.call('createUser', { id: account.id })
+
         return tokens
     }
 

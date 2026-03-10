@@ -1,5 +1,5 @@
 import { RpcException } from "@nestjs/microservices"
-import { RpcStatus } from "kovryzhko-clinic-common/dist/rpc-status.enum"
+import { RpcStatus } from "kovryzhko-clinic-common/dist/enums/rpc-status.enum"
 import * as jwt from 'jsonwebtoken'
 
 export function validateTokenErrors(error: unknown): never {

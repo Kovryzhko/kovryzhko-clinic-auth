@@ -2,10 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { RefreshRequest, SendOtpRequest, VerifyOtpRequest } from 'kovryzhko-clinic-contracts/gen/auth';
 import { OtpService } from '../otp/otp.service';
 import { RpcException } from '@nestjs/microservices';
-import { RpcStatus } from 'kovryzhko-clinic-common/dist/rpc-status.enum';
+import { RpcStatus } from 'kovryzhko-clinic-common/dist/enums/rpc-status.enum';
 import { UserRepository } from 'src/shared/repositories/user.repository';
 import { TokensService } from '../tokens/tokens.service';
 import { MessagesService } from '../messages/messages.service';
+import { UsersClientGrpc } from '../users/users.grpc';
 
 @Injectable()
 export class AuthService {
@@ -14,6 +15,7 @@ export class AuthService {
         private readonly userRepository: UserRepository,
         private readonly tokensService: TokensService,
         private readonly messagesService: MessagesService,
+        private readonly usersClient: UsersClientGrpc,
     ) { }
 
     public async sendOtp(data: SendOtpRequest) {
@@ -55,6 +57,8 @@ export class AuthService {
                 isEmailVerified: true
             })
         }
+
+        this.usersClient.call('createUser',{ id: account.id })
 
         const tokens = this.tokensService.generateAuthTokens({ deviceId: "test", userId: account.id })
 

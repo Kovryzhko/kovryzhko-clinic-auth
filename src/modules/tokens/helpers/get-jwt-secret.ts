@@ -1,5 +1,5 @@
 import { RpcException } from "@nestjs/microservices";
-import { RpcStatus } from "kovryzhko-clinic-common/dist/rpc-status.enum";
+import { RpcStatus } from "kovryzhko-clinic-common/dist/enums/rpc-status.enum";
 
 export function getJwtSecret() {
     const secret = process.env.JWT_SECRET

@@ -5,9 +5,10 @@ import { OtpService } from '../otp/otp.service';
 import { UserRepository } from 'src/shared/repositories/user.repository';
 import { TokensModule } from '../tokens/tokens.module';
 import { MessagesModule } from '../messages/messages.module';
+import { UsersModule } from '../users/users.module';
 
 @Module({
-    imports: [TokensModule, MessagesModule],
+    imports: [TokensModule, MessagesModule, UsersModule],
     controllers: [AuthController],
     providers: [AuthService, OtpService, UserRepository],
     exports: []

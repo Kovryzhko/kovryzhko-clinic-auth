@@ -1,6 +1,6 @@
 import * as jwt from 'jsonwebtoken'
 import { RpcException } from "@nestjs/microservices";
-import { RpcStatus } from "kovryzhko-clinic-common/dist/rpc-status.enum";
+import { RpcStatus } from "kovryzhko-clinic-common/dist/enums/rpc-status.enum";
 import { GenerateTokensData, IGenerateToken, ITokenPayload, TokenType } from './tokens.typings';
 import { getJwtSecret } from './helpers/get-jwt-secret';
 import { isValidTokenPayload } from '../auth/validators/is-valid-token-payload';
