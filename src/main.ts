@@ -10,6 +10,6 @@ async function bootstrap() {
     createGrpcServer(app)
 
     await app.startAllMicroservices()
-    await app.init()
+    await app.listen(9101)
 }
 bootstrap();

@@ -9,10 +9,18 @@ import { TokensModule } from './modules/tokens/tokens.module';
 import { MessagesModule } from './modules/messages/messages.module';
 import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './modules/users/users.module';
+import { ObserveModule } from './observe/observe.module';
 
 @Module({
     imports: [
-        ConfigModule.forRoot({ isGlobal: true }),
+        ConfigModule.forRoot({
+            isGlobal: true,
+            envFilePath: [
+                `.env.${process.env.NODE_ENV}.local`,
+                `.env.${process.env.NODE_ENV}`,
+                '.env'
+            ]
+        }),
         AuthModule,
         PrismaModule,
         RedisModule,
@@ -22,6 +30,7 @@ import { UsersModule } from './modules/users/users.module';
         TokensModule,
         MessagesModule,
         UsersModule,
+        ObserveModule,
     ],
     controllers: [],
     providers: [],
